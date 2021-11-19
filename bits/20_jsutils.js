@@ -125,16 +125,18 @@ function fuzzynum(s/*:string*/)/*:number*/ {
 	if(!isNaN(v)) return NaN;
 	if(!/\d/.test(s)) return v;
 	var wt = 1;
-	var ss = s.replace(/([\d]),([\d])/g,"$1$2").replace(/[$]/g,"").replace(/[%]/g, function() { wt *= 100; return "";});
+	/* reed's patch: disable percentage and dollar and minus bracket conversion */
+	// var ss = s.replace(/([\d]),([\d])/g,"$1$2").replace(/[$]/g,"").replace(/[%]/g, function() { wt *= 100; return "";});
+	var ss = s.replace(/([\d]),([\d])/g,"$1$2");
 	if(!isNaN(v = Number(ss))) return v / wt;
-	ss = ss.replace(/[(](.*)[)]/,function($$, $1) { wt = -wt; return $1;});
-	if(!isNaN(v = Number(ss))) return v / wt;
+	// ss = ss.replace(/[(](.*)[)]/,function($$, $1) { wt = -wt; return $1;});
+	// if(!isNaN(v = Number(ss))) return v / wt;
 	return v;
 }
 function fuzzydate(s/*:string*/)/*:Date*/ {
 	var o = new Date(s), n = new Date(NaN);
-    /* reed's patch: completely disable date conversion */
-    return n;
+	/* reed's patch: completely disable date conversion */
+	return n;
 	var y = o.getYear(), m = o.getMonth(), d = o.getDate();
 	if(isNaN(d)) return n;
 	if(y < 0 || y > 8099) return n;
