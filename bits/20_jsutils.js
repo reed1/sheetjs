@@ -127,7 +127,7 @@ function fuzzynum(s/*:string*/)/*:number*/ {
 	var wt = 1;
 	/* reed's patch: disable percentage and dollar and minus bracket conversion */
 	// var ss = s.replace(/([\d]),([\d])/g,"$1$2").replace(/[$]/g,"").replace(/[%]/g, function() { wt *= 100; return "";});
-	var ss = s.replace(/([\d]),([\d])/g,"$1$2");
+	var ss = s;
 	if(!isNaN(v = Number(ss))) return v / wt;
 	// ss = ss.replace(/[(](.*)[)]/,function($$, $1) { wt = -wt; return $1;});
 	// if(!isNaN(v = Number(ss))) return v / wt;
